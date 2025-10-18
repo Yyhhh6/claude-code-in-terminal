@@ -1,0 +1,18 @@
+查看访问外部服务器暴露的ip（公网ip）：
+curl https://ifconfig.me
+curl ipinfo.io
+
+在cmd中配置代理
+只对当前终端生效：
+rem HTTP/HTTPS 代理（HTTP 代理，也常被很多程序识别）
+set http_proxy=http://127.0.0.1:7897
+set https_proxy=http://127.0.0.1:7897
+对当前用户生效：
+rem 设置（永久）
+setx http_proxy "http://127.0.0.1:7890"
+setx https_proxy "http://127.0.0.1:7890"
+注意：setx 不会改变已经打开的窗口的环境，需新开 CMD 查看。
+删除代理：
+rem 把变量设为空（也可在系统环境变量界面删除）
+setx http_proxy ""
+setx https_proxy ""
