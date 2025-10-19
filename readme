@@ -16,3 +16,20 @@ setx https_proxy "http://127.0.0.1:7890"
 rem 把变量设为空（也可在系统环境变量界面删除）
 setx http_proxy ""
 setx https_proxy ""
+
+注意实际监听的端口！查看某端口是否被监听：
+netstat -ano | findstr 7897
+如果返回为空则未被监听，也就是并非正确的代理端口。正确的代理端口示例输出如下：
+  TCP    127.0.0.1:1326         127.0.0.1:7897         ESTABLISHED     10236
+  TCP    127.0.0.1:1741         127.0.0.1:7897         ESTABLISHED     10236
+  TCP    127.0.0.1:1764         127.0.0.1:7897         CLOSE_WAIT      3400
+或者可以在Clash Verge首页下面查看实际监听的端口
+
+可以显式指定代理查看节点和配置有无问题（注意下面这条命令如果要成功返回代理地址还要在规则中配置，如果使用的是规则代理的话）
+curl -v --proxy http://127.0.0.1:7897 https://ifconfig.me
+规则代理配置了anthropic.com后执行
+curl -v --proxy http://127.0.0.1:7897 https://api.anthropic.com/
+仍然forbidden
+
+第二天起来试，加上随意密钥的请求，返回密钥不可用，要付费才能获得密钥，遂作罢
+不过一个很奇怪的问题是，即使我开了全局或者规则代理有指定，用PKU和xfltd两个梯子都不能登上claude和gemini，说是限制地区，即使我显式改到使用美国的节点也不行
